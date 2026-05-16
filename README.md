@@ -41,7 +41,7 @@ em que -- ou | indicam que é possível se deslocar de uma matriz a outra.
 - spawnColetavel: usa as bibliotecas ```time``` e ```cstdlib``` para gerar aleatoriamente números entre 0 e 10 que são atribuídos à X e Y da coordenada desse coletável após usar o método ```podeMover()``` da intância de ```Mapa``` para checar que é uma posição válida. Por fim, altera a matriz para indicar com 'C' a posição do coletável para o jogador. 
 OBS.: precisa de lógica pra definir em qual mapa o coletável vai ficar, ou então definimos que vai ser um mapa só?
 
-### ```main.cpp```: controla o fluxo de jogo
+## ```main.cpp```: controla o fluxo de jogo
 - Instanciação de objetos de classes 
 - Fluxo de jogo
     - Prompt de movimento: pergunta ao jogador qual deve ser seu próximo movimento; caso seja de deslocamento WASD, usa o método ```movimentoWASD()``` do objeto ```mapaAtual```, uma instância da classe ```Mapa``` para tratar a entrada.
