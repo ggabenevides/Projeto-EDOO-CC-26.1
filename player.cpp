@@ -18,26 +18,26 @@ void Player::movimentoWASD(Mapa& mapa, char m)
     {
         if(mapa.podeMover(mapa.getMapaAtual(), Coordenada(posicaoAtual.x, posicaoAtual.y-1)))
         {
-            posicaoAtual.y -= 1;
+            posicaoAtual.x -= 1;
             movValido = true;
         }
     }
     else if(m == 'd')
     {
         if(mapa.podeMover(mapa.getMapaAtual(), Coordenada(posicaoAtual.x, posicaoAtual.y+1)))
-        {posicaoAtual.y += 1;
+        {posicaoAtual.x += 1;
         movValido = true;}
     }
     else if(m == 'w')
     {
         if(mapa.podeMover(mapa.getMapaAtual(), Coordenada(posicaoAtual.x-1, posicaoAtual.y)))
-        {posicaoAtual.x -= 1;
+        {posicaoAtual.y -= 1;
         movValido = true;}
     }
     else if(m == 's')
     {
         if(mapa.podeMover(mapa.getMapaAtual(), Coordenada(posicaoAtual.x+1, posicaoAtual.y)))
-        {posicaoAtual.x += 1;
+        {posicaoAtual.y += 1;
         movValido = true;}
     }
     if (movValido){
