@@ -123,7 +123,7 @@ Coordenada Mapa::checarMudancaDeMapa(Coordenada& posicao) {
         // saiu pela ESQUERDA (linhas 5 ou 6) -> vai para o MAPA 0 (direita)
         if (posicao.x == 0 && (posicao.y == 4 || posicao.y == 7)) {
             mapaAtual = 0;
-            posicao.y = 9; // aparece no canto direito do mapa 0
+            posicao.x = 9; // aparece no canto direito do mapa 0
         }
     }
 
@@ -149,7 +149,7 @@ Coordenada Mapa::checarMudancaDeMapa(Coordenada& posicao) {
 void Mapa::updateMapa(Coordenada posicaoAtual, Coordenada& novaPosicao)
 {
     //identificar qual o char identificador na posicao atual e armazenar ele
-    char temp = mapa[mapaAtual][posicaoAtual.x][posicaoAtual.y];
+    char temp = mapa[mapaAtual][posicaoAtual.y][posicaoAtual.x];
     //guardando mapa antigo p conseguir apagar posição antiga em caso de mudança de mapa
     int mapaAntigo = mapaAtual;
 
@@ -165,7 +165,7 @@ void Mapa::updateMapa(Coordenada posicaoAtual, Coordenada& novaPosicao)
 // função generalizada para expressar algo no mapa
 void Mapa::drawElement(int mapaEscolhido, Coordenada posicao, char e)
 {
-    mapa[mapaEscolhido][posicao.x][posicao.y] = e;
+    mapa[mapaEscolhido][posicao.y][posicao.x] = e;
 }
 
 std::string Mapa::operator[](int index)

@@ -13,7 +13,8 @@ int main(){
     Mapa mapa;
     Player jogador(mapa);
 
-    // instanciando coletáveis e armazenando eles num vetor para poder avaliar quantidade
+    // instanciando coletáveis e armazenando eles num vetor para poder avaliar 
+    srand(time(0)); // é usado no construtor
     int coletavelCount = 0; 
     while (coletavelCount < 3)
     {
