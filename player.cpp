@@ -9,26 +9,39 @@ Player::Player(Mapa& mapa)
     
 }
 
-void Player::movimentoWASD(Mapa& mapaAtual, char m)
+void Player::movimentoWASD(Mapa& mapa, char m)
 {
     Coordenada posicaoAntiga = posicaoAtual;
+    bool movValido = false;
 
     if(m == 'a')
     {
-        posicaoAtual.y -= 1;
+        if(mapa.podeMover(mapa.getMapaAtual(), Coordenada(posicaoAtual.x, posicaoAtual.y-1)))
+        {
+            posicaoAtual.y -= 1;
+            movValido = true;
+        }
     }
     else if(m == 'd')
     {
-        posicaoAtual.y += 1;
+        if(mapa.podeMover(mapa.getMapaAtual(), Coordenada(posicaoAtual.x, posicaoAtual.y+1)))
+        {posicaoAtual.y += 1;
+        movValido = true;}
     }
     else if(m == 'w')
     {
-        posicaoAtual.x -= 1;
+        if(mapa.podeMover(mapa.getMapaAtual(), Coordenada(posicaoAtual.x-1, posicaoAtual.y)))
+        {posicaoAtual.x -= 1;
+        movValido = true;}
     }
     else if(m == 's')
     {
-        posicaoAtual.x += 1;
+        if(mapa.podeMover(mapa.getMapaAtual(), Coordenada(posicaoAtual.x+1, posicaoAtual.y)))
+        {posicaoAtual.x += 1;
+        movValido = true;}
     }
-
-    mapaAtual.updateMapa(posicaoAntiga, posicaoAtual);
+    if (movValido){
+        mapa.updateMapa(posicaoAntiga, posicaoAtual);
+    }
+    
 }
