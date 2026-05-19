@@ -1,24 +1,33 @@
-#ifndef MAPA_HPP
-#define MAPA_HPP
-#include <vector>
-#include <string>
-#include <cstdlib> // pra usar rand e srand
-#include <time.h>
-#include "coordenada.hpp"
+    #ifndef MAPA_HPP
+    #define MAPA_HPP
 
-class Mapa
-{
-    private:
+    #include <vector>
+    #include <string>
+    #include <cstdlib> // pra usar rand e srand
+    #include <time.h>
+    #include "coordenada.hpp"
 
-        std::vector<std::string> mapa; //matriz 10x10 em que '#' significa floresta e '.' significa caminho andável
-        int mapa_atual; //indica qual das 4 matrizes é o mapa atual (0-3)
-    
-    public:
-        friend class Controller;
-        friend class Player;
-        void setMapa (int mapa_atual=0);
-        bool podeMover(int x, int y);
+    class Mapa
+    {
+        private:
 
-};
+            std::vector<std::vector<std::string>> mapa; //vetor de 4 matrizes 10x10, em que cada matriz é um mapa
+            int mapaAtual; //indica qual das 4 matrizes é o mapa em que o jogador se encontra atualmente (0-3)
+        
+        public:
 
-#endif
+            Mapa (); 
+            int getMapaAtual() {return mapaAtual;}
+            std::string operator[](int index);
+
+            bool podeMover(int mapaEscolhido, Coordenada novaPosicao);
+            Coordenada checarMudancaDeMapa(Coordenada& posicao);
+
+            void updateMapa (Coordenada posicaoAtual, Coordenada& novaPosicao);
+            void drawElement(int mapaEscolhido, Coordenada posicao, char e);
+
+            friend std::ostream& operator<< (std::ostream& os, Mapa& mapa);
+
+    };
+
+    #endif

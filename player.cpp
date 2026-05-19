@@ -1,30 +1,47 @@
 #include "player.hpp"
 
-void Player::movimentoWASD(Mapa mapaAtual, char m)
+Player::Player(Mapa& mapa)
 {
-    int x = getX();
-    int y = getY();
-    bool movValido;
+    // posição inicial do jogador é centro da matriz 0
+    posicaoAtual = Coordenada(4, 5);
+    mapa.drawElement(0, posicaoAtual, 'P');
+    coletaveisQtde = 0;
+    
+}
+
+void Player::movimentoWASD(Mapa& mapa, char m)
+{
+    Coordenada posicaoAntiga = posicaoAtual;
+    bool movValido = false;
 
     if(m == 'a')
     {
-        movValido = mapaAtual.podeMover(x-1, y);
+        if(mapa.podeMover(mapa.getMapaAtual(), Coordenada(posicaoAtual.x, posicaoAtual.y-1)))
+        {
+            posicaoAtual.y -= 1;
+            movValido = true;
+        }
     }
     else if(m == 'd')
     {
-        movValido = mapaAtual.podeMover(x+1, y);
+        if(mapa.podeMover(mapa.getMapaAtual(), Coordenada(posicaoAtual.x, posicaoAtual.y+1)))
+        {posicaoAtual.y += 1;
+        movValido = true;}
     }
     else if(m == 'w')
     {
-        movValido = mapaAtual.podeMover(x, y+1);
+        if(mapa.podeMover(mapa.getMapaAtual(), Coordenada(posicaoAtual.x-1, posicaoAtual.y)))
+        {posicaoAtual.x -= 1;
+        movValido = true;}
     }
     else if(m == 's')
     {
-        movValido = mapaAtual.podeMover(x, y-1);
+        if(mapa.podeMover(mapa.getMapaAtual(), Coordenada(posicaoAtual.x+1, posicaoAtual.y)))
+        {posicaoAtual.x += 1;
+        movValido = true;}
     }
-
-    if (movValido)
-    {
-        // atualizar matrizes com nova posição do jogador ou então trocar de matriz
+    if (movValido){
+        mapa.updateMapa(posicaoAntiga, posicaoAtual);
     }
+    
 }

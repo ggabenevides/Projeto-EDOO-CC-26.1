@@ -6,13 +6,12 @@
 class Player 
 {
     private:
-        Coordenada posiçãoAtual;
+        Coordenada posicaoAtual;
         int coletaveisQtde;
         
     public:
-        void movimentoWASD(Mapa mapaAtual, char m);
-        int getX() {return posiçãoAtual.x;}
-        int getY() {return posiçãoAtual.y;}
+        Player (Mapa& mapa);
+        void movimentoWASD(Mapa& mapaAtual, char m);
 };
 
 #endif
