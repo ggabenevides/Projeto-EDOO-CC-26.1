@@ -13,9 +13,9 @@ _O projeto que escolhemos foi "Uma Aventura MangueBeat": este jogo apresenta uma
 
 OBS.: as matrizes de mapa apresentam uma continuidade no seguinte modelo:
 ```
-1 -- 3
+0 -- 2
 |    |
-2 -- 4
+1 -- 3
 ```
 em que -- ou | indicam que é possível se deslocar de uma matriz a outra.
 

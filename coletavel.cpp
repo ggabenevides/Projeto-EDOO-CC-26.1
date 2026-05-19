@@ -1,6 +1,6 @@
 #include "coletavel.hpp"
 
-void Coletavel::spawnColetavel(Mapa mapa){
+Coletavel::Coletavel(Mapa& mapa){
 
     // inicializando coordenadas dos coletaveis com valores válidos
     int min = 0, max = 10;
@@ -10,17 +10,17 @@ void Coletavel::spawnColetavel(Mapa mapa){
     Coordenada item;
     while (not valido)
     {
+        mapaEscolhido = std::rand() % 4; // número entre 0 e 3 p indicar qual foi o mapa escolhido
         item.x = std::rand() % (max - min + 1) + min; //operações para garantir que o número gerado estará entre 0 e 10 para caber na matriz
         item.y = std::rand() % (max - min + 1) + min;
-        if (mapa.podeMover(item.x, item.y))
+        if (mapa.podeMover(mapaEscolhido, item))
         {
             valido = true;
 
             //armazenando posição válida nos dados da classe
-            posicao.x = item.x;
-            posicao.y = item.y;
+            posicao = item;
         }
     }
 
-    // alterando matrizes com as coordenadas geradas 
+    mapa.drawElement(mapaEscolhido, posicao, 'C'); 
 }

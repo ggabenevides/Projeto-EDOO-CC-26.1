@@ -1,30 +1,34 @@
 #include "player.hpp"
 
-void Player::movimentoWASD(Mapa mapaAtual, char m)
+Player::Player(Mapa& mapa)
 {
-    int x = getX();
-    int y = getY();
-    bool movValido;
+    // posição inicial do jogador é centro da matriz 0
+    posicaoAtual = Coordenada(4, 5);
+    mapa.drawElement(0, posicaoAtual, 'P');
+    coletaveisQtde = 0;
+    
+}
+
+void Player::movimentoWASD(Mapa& mapaAtual, char m)
+{
+    Coordenada posicaoAntiga = posicaoAtual;
 
     if(m == 'a')
     {
-        movValido = mapaAtual.podeMover(x-1, y);
+        posicaoAtual.y -= 1;
     }
     else if(m == 'd')
     {
-        movValido = mapaAtual.podeMover(x+1, y);
+        posicaoAtual.y += 1;
     }
     else if(m == 'w')
     {
-        movValido = mapaAtual.podeMover(x, y+1);
+        posicaoAtual.x -= 1;
     }
     else if(m == 's')
     {
-        movValido = mapaAtual.podeMover(x, y-1);
+        posicaoAtual.x += 1;
     }
 
-    if (movValido)
-    {
-        // atualizar matrizes com nova posição do jogador ou então trocar de matriz
-    }
+    mapaAtual.updateMapa(posicaoAntiga, posicaoAtual);
 }

@@ -10,15 +10,15 @@ int main(){
     bool terminou = false;
 
     // instanciando objetos
-    Player jogador;
     Mapa mapa;
+    Player jogador(mapa);
 
     // instanciando coletáveis e armazenando eles num vetor para poder avaliar quantidade
-    std::vector<Coletavel> coletaveis; 
-    while (coletaveis.size() < 3)
+    int coletavelCount = 0; 
+    while (coletavelCount < 3)
     {
-        Coletavel item;
-        item.spawnColetavel(mapa);
+        Coletavel item(mapa);
+        coletavelCount++;
     }
 
     // fluxo de jogo
@@ -29,6 +29,7 @@ int main(){
         std::cout << "Para onde você deseja se movimentar? (w/a/s/d) ";
         std::cin >> movimento;
         jogador.movimentoWASD(mapa, movimento);
+        std::cout << mapa;
     }
 
 }

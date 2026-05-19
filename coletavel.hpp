@@ -7,8 +7,9 @@ class Coletavel
 {
     private:
         Coordenada posicao;
+        int mapaEscolhido;
 
     public:
-        void spawnColetavel(Mapa mapa);
+        Coletavel(Mapa& mapa);
 };
 #endif
