@@ -14,6 +14,7 @@ main.cpp
 mapas.hpp / mapas.cpp
 player.hpp / player.cpp
 coletavel.hpp / coletavel.cpp
+inimigo.hpp / inimigo.cpp
 coordenada.hpp
 ```
 
@@ -50,7 +51,8 @@ Os mapas se conectam no seguinte modelo:
 #### Métodos
 - `Mapa()`: construtor; inicializa as 4 matrizes e define `mapaAtual = 0`.
 - `getMapaAtual()`: retorna o índice do mapa atual.
-- `podeMover(int mapaEscolhido, Coordenada novaPosicao)`: retorna `true` se a posição destino está dentro dos limites e é chão (`'.'`).
+- `podeMover(int mapaEscolhido, Coordenada novaPosicao)`: retorna `true` se a posição destino está dentro dos limites e é chão (`'.'`) ou coletável (`'C'`).
+- `getChar(int mapaEscolhido, Coordenada pos)`: retorna o caractere na posição indicada do mapa escolhido.
 - `checarMudancaDeMapa(Coordenada& posicao)`: verifica se a posição está em uma borda de transição e, caso esteja, atualiza `mapaAtual` e reposiciona a coordenada na borda oposta do novo mapa. Retorna a coordenada (possivelmente modificada).
 - `updateMapa(Coordenada posicaoAtual, Coordenada& novaPosicao)`: move um personagem no mapa — chama `checarMudancaDeMapa`, desenha o caractere na nova posição e apaga o da posição antiga. O parâmetro `novaPosicao` é passado por referência para refletir a posição final após possível troca de mapa.
 - `drawElement(int mapaEscolhido, Coordenada posicao, char e)`: escreve um caractere `e` na posição indicada do mapa escolhido.
@@ -64,11 +66,16 @@ Representa o jogador e controla seu movimento.
 
 #### Dados
 - `posicaoAtual`: `Coordenada` com a posição atual do jogador.
-- `coletaveisQtde`: inteiro que conta quantos coletáveis o jogador já coletou. Ao chegar em 3, o jogo deve encerrar.
+- `coletaveisQtde`: inteiro que conta quantos coletáveis o jogador já coletou. Ao chegar em 3, o jogo encerra.
+- `vida`: inteiro que representa os pontos de vida do jogador (começa em 3). Ao chegar em 0, o jogo encerra.
 
 #### Métodos
 - `Player(Mapa& mapa)`: construtor; posiciona o jogador em `(4, 5)` no mapa 0 e desenha `'P'` no mapa.
-- `movimentoWASD(Mapa& mapa, char m)`: processa a entrada `w/a/s/d`, verifica com `podeMover` se o movimento é válido e, se for, chama `updateMapa` para atualizar o mapa e a posição interna do jogador.
+- `movimentoWASD(Mapa& mapa, char m)`: processa a entrada `w/a/s/d`, verifica com `podeMover` se o movimento é válido e, se for, detecta coleta de `'C'` (incrementando `coletaveisQtde`) e chama `updateMapa` para atualizar o mapa e a posição interna do jogador.
+- `tomarDano()`: decrementa `vida` em 1 (chamado pela `main` quando o inimigo atinge o jogador).
+- `getColetaveisQtde()`: retorna `coletaveisQtde`.
+- `getPosicao()`: retorna `posicaoAtual`.
+- `getVida()`: retorna `vida`.
 
   Mapeamento de teclas (em relação a `x` = coluna, `y` = linha):
   | Tecla | Efeito |
@@ -81,14 +88,25 @@ Representa o jogador e controla seu movimento.
 ---
 
 ### Classe `Coletavel` (`coletavel.hpp` / `coletavel.cpp`)
-Representa um item coletável espalhado aleatoriamente pelos mapas.
+Classe base para entidades posicionadas aleatoriamente no mapa (coletáveis e inimigo).
 
-#### Dados
-- `posicao`: `Coordenada` com a posição do coletável.
-- `mapaEscolhido`: inteiro (0–3) que indica em qual mapa o coletável foi spawnado.
+#### Dados (protected)
+- `posicaoAtual`: `Coordenada` com a posição atual da entidade.
+- `mapaEscolhido`: inteiro (0–3) que indica em qual mapa a entidade foi spawnada.
 
 #### Métodos
-- `Coletavel(Mapa& mapa)`: construtor; gera aleatoriamente um mapa (0–3) e coordenadas (0–9) até encontrar uma posição válida (chão livre), então desenha `'C'` nessa posição.
+- `Coletavel(Mapa& mapa, char simbolo = 'C')`: construtor; gera aleatoriamente um mapa (0–3) e coordenadas (0–9) até encontrar uma posição de chão livre (`'.'`), então desenha `simbolo` nessa posição. O valor padrão `'C'` é usado para coletáveis.
+- `getPosicao()`: retorna `posicaoAtual`.
+- `getMapa()`: retorna `mapaEscolhido`.
+
+---
+
+### Classe `Inimigo` (`inimigo.hpp` / `inimigo.cpp`)
+Herda de `Coletavel`. Representa um inimigo que persegue o jogador, spawnando com o símbolo `'I'`.
+
+#### Métodos
+- `Inimigo(Mapa& mapa)`: construtor; chama `Coletavel(mapa, 'I')` para spawnar o inimigo em posição aleatória válida.
+- `mover(Mapa& mapa, Coordenada posicaoPlayer, int mapaPlayer)`: move o inimigo um passo em direção ao jogador se estiver no mesmo mapa. Tenta movimento diagonal primeiro (fiel ao Python que atualiza x e y simultaneamente); se bloqueado, cai para o eixo de maior diferença. Retorna `true` se o inimigo atingiu a célula do jogador (colisão), `false` caso contrário. Não sobrescreve coletáveis nem o jogador ao se mover.
 
 ---
 
@@ -97,12 +115,11 @@ Controla o fluxo de jogo:
 
 1. Instancia `Mapa` e `Player` (o `'P'` já é desenhado no mapa no construtor).
 2. Instancia 3 objetos `Coletavel`, cada um spawnando em posição aleatória válida.
-3. Loop principal: lê entrada `w/a/s/d`, chama `movimentoWASD` e imprime o mapa atualizado a cada turno.
+3. Instancia 1 objeto `Inimigo`, spawnando em posição aleatória válida.
+4. Loop principal: lê entrada `w/a/s/d`, chama `movimentoWASD`, move o inimigo, verifica condições de fim de jogo e imprime o mapa atualizado a cada turno.
+   - Encerra quando `coletaveisQtde == 3` (vitória) ou `vida == 0` (derrota).
 
 ---
 
 ## Próximos passos
-- Detectar coleta de `'C'` em `movimentoWASD` e incrementar `coletaveisQtde`
-- Encerrar o loop da `main` quando `coletaveisQtde == 3`
-- Implementar classe `Inimigo` com movimentação própria
-- Adicionar mensagens de feedback ao jogador (coletou item, bloqueado por parede, troca de mapa)
+- Adicionar mensagens de feedback ao jogador (coletou item, bloqueado por parede, troca de mapa, dano recebido)
