@@ -38,8 +38,8 @@ Mapa::Mapa ()
         "##..#...##",
         "##......##",
         "........##",
-        "##......##",
-        "#####..###"
+        ".#......##",
+        ".####..###"
     };
 
     std::vector<std::string> mapa3 = {
@@ -73,8 +73,14 @@ bool Mapa::podeMover(int mapaEscolhido, Coordenada novaPosicao) {
     if (novaPosicao.y < 0 || novaPosicao.y >= 10 || novaPosicao.x < 0 || novaPosicao.x >= 10) {
         return false;
     }
-    // retorna verdadeiro se for ponto (chão), falso se for qualquer outra coisa (parede)
-    return mapa[mapaEscolhido][novaPosicao.y][novaPosicao.x] == '.';
+    char c = mapa[mapaEscolhido][novaPosicao.y][novaPosicao.x];
+    // retorna verdadeiro se for chão ou coletável; falso se for parede
+    return c == '.' || c == 'C';
+}
+
+// retorna o char na posição indicada do mapa escolhido
+char Mapa::getChar(int mapaEscolhido, Coordenada pos) {
+    return mapa[mapaEscolhido][pos.y][pos.x];
 }
 
 Coordenada Mapa::checarMudancaDeMapa(Coordenada& posicao) {
@@ -148,16 +154,16 @@ Coordenada Mapa::checarMudancaDeMapa(Coordenada& posicao) {
 // função para atualizar mapa com movimentos de personagens que se movem (inimigo, player)
 void Mapa::updateMapa(Coordenada posicaoAtual, Coordenada& novaPosicao)
 {
-    //identificar qual o char identificador na posicao atual e armazenar ele
+    // identificar qual o char identificador na posicao atual e armazenar ele
     char temp = mapa[mapaAtual][posicaoAtual.y][posicaoAtual.x];
-    //guardando mapa antigo p conseguir apagar posição antiga em caso de mudança de mapa
+    // guardando mapa antigo p conseguir apagar posição antiga em caso de mudança de mapa
     int mapaAntigo = mapaAtual;
 
-    //colocar o char na nova posicao
+    // colocar o char na nova posicao
     // assumir que validade do movimento foi checada antes
     novaPosicao = checarMudancaDeMapa(novaPosicao);
     drawElement(mapaAtual, novaPosicao, temp);
-    //substituir posicao antiga por '.'
+    // substituir posicao antiga por '.'
     drawElement(mapaAntigo, posicaoAtual, '.');
     
 }
