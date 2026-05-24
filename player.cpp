@@ -7,6 +7,8 @@ Player::Player(Mapa& mapa)
     mapa.drawElement(0, posicaoAtual, 'P');
     coletaveisQtde = 0;
     vida = 3;
+    colisao = false;
+    novoColetavel = false;
     
 }
 
