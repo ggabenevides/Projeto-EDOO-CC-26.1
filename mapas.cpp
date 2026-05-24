@@ -113,7 +113,7 @@ Coordenada Mapa::checarMudancaDeMapa(Coordenada& posicao) {
             posicao.x = 0; // aparece na borda esquerda do mapa 3
         }
         // saiu por CIMA (coluna 4 ou 5) -> volta para o MAPA 0 (Baixo)
-        if (posicao.x == 0 && (posicao.y == 4 || posicao.y == 5)) {
+        if (posicao.y == 0 && (posicao.x == 4 || posicao.x == 5)) {
             mapaAtual = 0;
             posicao.y = 9; // aparece no fundo do mapa 0
         }
