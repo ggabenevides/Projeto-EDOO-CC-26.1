@@ -1,4 +1,5 @@
 #include "player.hpp"
+#include "excecoes.hpp"
 
 Player::Player(Mapa& mapa)
 {
