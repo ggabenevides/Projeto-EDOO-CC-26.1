@@ -99,7 +99,7 @@ Coordenada Mapa::checarMudancaDeMapa(Coordenada& posicao) {
             posicao.x = 0; // aparece na borda esquerda do Mapa 1
         }
         // saiu por BAIXO (coluna 4 ou 5) -> vai para o MAPA 1 (Cima)
-        if (posicao.x == 9 && (posicao.y == 4 || posicao.y == 5)) {
+        if (posicao.y == 9 && (posicao.x == 4 || posicao.x == 5)) {
             mapaAtual = 1;
             posicao.y = 0; // aparece no topo do Mapa 2
         }
