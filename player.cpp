@@ -83,5 +83,6 @@ void Player::movimentoWASD(Mapa& mapa, char m)
         }
         mapa.updateMapa(posicaoAntiga, posicaoAtual);
     }
-    
+    // lança exceção para movimento inválido — contra paredes
+    else throw AcaoInvalidaException("Movimento inválido! Tente novamente:");
 }
