@@ -19,6 +19,22 @@ void Player::tomarDano()
         colisao = true;}
 }
 
+void Player::checarEvento()
+{
+    if (novoColetavel)
+    {
+        novoColetavel = false;
+        std::cout << "Você tem um novo coletável!"<< std::endl <<
+        "Seu saldo de coletáveis agora é: " <<  coletaveisQtde << "\n" << std::endl;
+    }
+    if (colisao)
+    {
+        colisao = false;
+        std::cout << "Você foi atacado pelo inimigo!" << std::endl <<
+        "Seu saldo de vida agora é: " << vida << "\n" << std::endl;
+    }
+}
+
 void Player::movimentoWASD(Mapa& mapa, char m)
 {
     Coordenada posicaoAntiga = posicaoAtual;
