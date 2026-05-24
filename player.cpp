@@ -14,7 +14,9 @@ Player::Player(Mapa& mapa)
 
 void Player::tomarDano()
 {
-    if (vida > 0) vida--;
+    if (vida > 0) {
+        vida--;
+        colisao = true;}
 }
 
 void Player::movimentoWASD(Mapa& mapa, char m)
