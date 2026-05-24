@@ -72,6 +72,9 @@ void Player::movimentoWASD(Mapa& mapa, char m)
             movValido = true;
         }
     }
+    // lança exceção para entrada inválida — diferente de (W/A/S/S)
+    else throw AcaoInvalidaException("Entrada inválida! Tente novamente:");
+
     if (movValido){
         // incrementa o contador se o jogador entrar na célula de coletável
         if (mapa.getChar(mapa.getMapaAtual(), posicaoAtual) == 'C') {
