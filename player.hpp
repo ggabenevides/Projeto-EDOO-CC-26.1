@@ -9,6 +9,7 @@ class Player
         Coordenada posicaoAtual;
         int coletaveisQtde;
         int vida;
+        bool novoColetavel, colisao;
         
     public:
         Player (Mapa& mapa);
