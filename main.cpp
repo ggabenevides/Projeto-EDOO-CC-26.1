@@ -33,7 +33,7 @@ int main(){
                              "Será que você consegue concluir a missão?\n";
 
     // estado inicial
-    std::cout << mapa;
+    std::cout << "Bem-vindo a Uma Aventura Manguebeat!\n" << std::endl << instrucoes << std::endl << mapa << std::endl;
 
     // fluxo de jogo
     while(not terminou)
