@@ -55,7 +55,7 @@ Mapa::Mapa ()
         "##########"
     };
 
-    // inicializando data member com valores iniciais p matrizes de mapa        
+    // inicializando data member com valores iniciais p matrizes de mapa
     mapa.push_back(mapa0);
     mapa.push_back(mapa1);
     mapa.push_back(mapa2);
