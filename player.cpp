@@ -79,6 +79,7 @@ void Player::movimentoWASD(Mapa& mapa, char m)
         // incrementa o contador se o jogador entrar na célula de coletável
         if (mapa.getChar(mapa.getMapaAtual(), posicaoAtual) == 'C') {
             coletaveisQtde++;
+            novoColetavel = true;
         }
         mapa.updateMapa(posicaoAntiga, posicaoAtual);
     }
