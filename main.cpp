@@ -3,6 +3,7 @@
 #include "coordenada.hpp"
 #include "coletavel.hpp"
 #include "inimigo.hpp"
+#include "excecoes.hpp"
 #include <iostream>
 
 int main(){
