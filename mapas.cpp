@@ -108,7 +108,7 @@ Coordenada Mapa::checarMudancaDeMapa(Coordenada& posicao) {
     // TRANSIÇÕES DO MAPA 1
     else if (mapaAtual == 1) {
         // saiu pela DIREITA (linha 3 ou 4) -> vai para o MAPA 3 (Direita)
-        if (posicao.y == 9 && (posicao.x == 3 || posicao.x == 4)) {
+        if (posicao.x == 9 && (posicao.y == 3 || posicao.y == 4)) {
             mapaAtual = 3;
             posicao.x = 0; // aparece na borda esquerda do mapa 3
         }
