@@ -94,7 +94,7 @@ Coordenada Mapa::checarMudancaDeMapa(Coordenada& posicao) {
 
     if (mapaAtual == 0) {
         // saiu pela DIREITA (linha 4 ou 7) -> vai para o MAPA 2 (esquerda)
-        if (posicao.y == 9 && (posicao.x == 4 || posicao.x == 7)) {
+        if (posicao.x == 9 && (posicao.y == 4 || posicao.y == 7)) {
             mapaAtual = 2;
             posicao.x = 0; // aparece na borda esquerda do Mapa 1
         }
