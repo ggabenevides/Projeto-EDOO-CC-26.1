@@ -124,7 +124,7 @@ Coordenada Mapa::checarMudancaDeMapa(Coordenada& posicao) {
         // saiu por BAIXO (coluna 4 ou 5) -> vai para o MAPA 3 (cima)
         if (posicao.y == 9 && (posicao.x == 5 || posicao.x == 6)) {
             mapaAtual = 3;
-            posicao.y = 9; // aparece no topo do mapa 3
+            posicao.y = 0; // aparece no topo do mapa 3
         }
         // saiu pela ESQUERDA (linhas 5 ou 6) -> vai para o MAPA 0 (direita)
         if (posicao.x == 0 && (posicao.y == 4 || posicao.y == 7)) {
