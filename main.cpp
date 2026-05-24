@@ -26,6 +26,11 @@ int main(){
     // instanciando inimigo
     Inimigo inimigo(mapa);
 
+    // instruções
+    std::string instrucoes = "Usando as teclas W/A/S/D (capitalizadas ou não), movimente-se pelas áreas livres do mangue até reunir três coletáveis, dispersos pelo caminho.\n"
+                             "Mas atenção: inimigos estão à espreita e, com apenas três ataques, poderão dar fim a sua jornada!\n"
+                             "Será que você consegue concluir a missão?\n";
+
     // estado inicial
     std::cout << mapa;
 
