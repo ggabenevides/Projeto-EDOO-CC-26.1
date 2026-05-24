@@ -122,7 +122,7 @@ Coordenada Mapa::checarMudancaDeMapa(Coordenada& posicao) {
     // TRANSIÇÕES DO MAPA 2
     else if (mapaAtual == 2) {
         // saiu por BAIXO (coluna 4 ou 5) -> vai para o MAPA 3 (cima)
-        if (posicao.y == 0 && (posicao.x == 5 || posicao.x == 6)) {
+        if (posicao.y == 9 && (posicao.x == 5 || posicao.x == 6)) {
             mapaAtual = 3;
             posicao.y = 9; // aparece no topo do mapa 3
         }
