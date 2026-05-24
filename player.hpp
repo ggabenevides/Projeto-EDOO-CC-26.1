@@ -18,6 +18,7 @@ class Player
         Coordenada getPosicao() { return posicaoAtual; }
         int getVida() { return vida; }
         void tomarDano();
+        void checarEvento();
 };
 
 #endif
