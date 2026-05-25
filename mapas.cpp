@@ -38,8 +38,8 @@ Mapa::Mapa ()
         "##..#...##",
         "##......##",
         "........##",
-        "##......##",
-        "#####..###"
+        ".#......##",
+        ".####..###"
     };
 
     std::vector<std::string> mapa3 = {
@@ -55,7 +55,7 @@ Mapa::Mapa ()
         "##########"
     };
 
-    // inicializando data member com valores iniciais p matrizes de mapa        
+    // inicializando data member com valores iniciais p matrizes de mapa
     mapa.push_back(mapa0);
     mapa.push_back(mapa1);
     mapa.push_back(mapa2);
@@ -73,8 +73,14 @@ bool Mapa::podeMover(int mapaEscolhido, Coordenada novaPosicao) {
     if (novaPosicao.y < 0 || novaPosicao.y >= 10 || novaPosicao.x < 0 || novaPosicao.x >= 10) {
         return false;
     }
-    // retorna verdadeiro se for ponto (chão), falso se for qualquer outra coisa (parede)
-    return mapa[mapaEscolhido][novaPosicao.y][novaPosicao.x] == '.';
+    char c = mapa[mapaEscolhido][novaPosicao.y][novaPosicao.x];
+    // retorna verdadeiro se for chão ou coletável; falso se for parede
+    return c == '.' || c == 'C';
+}
+
+// retorna o char na posição indicada do mapa escolhido
+char Mapa::getChar(int mapaEscolhido, Coordenada pos) {
+    return mapa[mapaEscolhido][pos.y][pos.x];
 }
 
 Coordenada Mapa::checarMudancaDeMapa(Coordenada& posicao) {
@@ -88,12 +94,12 @@ Coordenada Mapa::checarMudancaDeMapa(Coordenada& posicao) {
 
     if (mapaAtual == 0) {
         // saiu pela DIREITA (linha 4 ou 7) -> vai para o MAPA 2 (esquerda)
-        if (posicao.y == 9 && (posicao.x == 4 || posicao.x == 7)) {
+        if (posicao.x == 9 && (posicao.y == 4 || posicao.y == 7)) {
             mapaAtual = 2;
             posicao.x = 0; // aparece na borda esquerda do Mapa 1
         }
         // saiu por BAIXO (coluna 4 ou 5) -> vai para o MAPA 1 (Cima)
-        if (posicao.x == 9 && (posicao.y == 4 || posicao.y == 5)) {
+        if (posicao.y == 9 && (posicao.x == 4 || posicao.x == 5)) {
             mapaAtual = 1;
             posicao.y = 0; // aparece no topo do Mapa 2
         }
@@ -102,12 +108,12 @@ Coordenada Mapa::checarMudancaDeMapa(Coordenada& posicao) {
     // TRANSIÇÕES DO MAPA 1
     else if (mapaAtual == 1) {
         // saiu pela DIREITA (linha 3 ou 4) -> vai para o MAPA 3 (Direita)
-        if (posicao.y == 9 && (posicao.x == 3 || posicao.x == 4)) {
+        if (posicao.x == 9 && (posicao.y == 3 || posicao.y == 4)) {
             mapaAtual = 3;
             posicao.x = 0; // aparece na borda esquerda do mapa 3
         }
         // saiu por CIMA (coluna 4 ou 5) -> volta para o MAPA 0 (Baixo)
-        if (posicao.x == 0 && (posicao.y == 4 || posicao.y == 5)) {
+        if (posicao.y == 0 && (posicao.x == 4 || posicao.x == 5)) {
             mapaAtual = 0;
             posicao.y = 9; // aparece no fundo do mapa 0
         }
@@ -116,9 +122,9 @@ Coordenada Mapa::checarMudancaDeMapa(Coordenada& posicao) {
     // TRANSIÇÕES DO MAPA 2
     else if (mapaAtual == 2) {
         // saiu por BAIXO (coluna 4 ou 5) -> vai para o MAPA 3 (cima)
-        if (posicao.y == 0 && (posicao.x == 5 || posicao.x == 6)) {
+        if (posicao.y == 9 && (posicao.x == 5 || posicao.x == 6)) {
             mapaAtual = 3;
-            posicao.y = 9; // aparece no topo do mapa 3
+            posicao.y = 0; // aparece no topo do mapa 3
         }
         // saiu pela ESQUERDA (linhas 5 ou 6) -> vai para o MAPA 0 (direita)
         if (posicao.x == 0 && (posicao.y == 4 || posicao.y == 7)) {
@@ -148,16 +154,16 @@ Coordenada Mapa::checarMudancaDeMapa(Coordenada& posicao) {
 // função para atualizar mapa com movimentos de personagens que se movem (inimigo, player)
 void Mapa::updateMapa(Coordenada posicaoAtual, Coordenada& novaPosicao)
 {
-    //identificar qual o char identificador na posicao atual e armazenar ele
+    // identificar qual o char identificador na posicao atual e armazenar ele
     char temp = mapa[mapaAtual][posicaoAtual.y][posicaoAtual.x];
-    //guardando mapa antigo p conseguir apagar posição antiga em caso de mudança de mapa
+    // guardando mapa antigo p conseguir apagar posição antiga em caso de mudança de mapa
     int mapaAntigo = mapaAtual;
 
-    //colocar o char na nova posicao
+    // colocar o char na nova posicao
     // assumir que validade do movimento foi checada antes
     novaPosicao = checarMudancaDeMapa(novaPosicao);
     drawElement(mapaAtual, novaPosicao, temp);
-    //substituir posicao antiga por '.'
+    // substituir posicao antiga por '.'
     drawElement(mapaAntigo, posicaoAtual, '.');
     
 }

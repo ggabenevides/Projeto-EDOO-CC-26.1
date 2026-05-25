@@ -5,11 +5,13 @@
 
 class Coletavel
 {
-    private:
-        Coordenada posicao;
+    protected:
+        Coordenada posicaoAtual;
         int mapaEscolhido;
 
     public:
-        Coletavel(Mapa& mapa);
+        Coletavel(Mapa& mapa, char simbolo = 'C');
+        Coordenada getPosicao() { return posicaoAtual; }
+        int getMapa() { return mapaEscolhido; }
 };
 #endif

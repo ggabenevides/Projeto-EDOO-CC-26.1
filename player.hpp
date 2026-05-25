@@ -8,10 +8,17 @@ class Player
     private:
         Coordenada posicaoAtual;
         int coletaveisQtde;
+        int vida;
+        bool novoColetavel, colisao;
         
     public:
         Player (Mapa& mapa);
         void movimentoWASD(Mapa& mapaAtual, char m);
+        int getColetaveisQtde() { return coletaveisQtde; }
+        Coordenada getPosicao() { return posicaoAtual; }
+        int getVida() { return vida; }
+        void tomarDano();
+        void checarEvento();
 };
 
 #endif
