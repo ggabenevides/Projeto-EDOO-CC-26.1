@@ -63,7 +63,7 @@ Os mapas se conectam no seguinte modelo:
 ---
 
 ### Classe `Player` (`player.hpp` / `player.cpp`)
-Representa o jogador e controla seu movimento.
+Representa o jogador, controla seu movimento e lança exceções em caso de ação inválida.
 
 #### Dados
 - `posicaoAtual`: `Coordenada` com a posição atual do jogador.
@@ -133,5 +133,12 @@ Controla o fluxo de jogo:
 2. Instancia 3 objetos `Coletavel`, cada um spawnando em posição aleatória válida.
 3. Instancia 1 objeto `Inimigo`, spawnando em posição aleatória válida.
 4. Imprime mensagens iniciais e boas-vindas e instruções.
-5. Loop principal: lê e padroniza entrada `W/A/S/D`, chama `movimentoWASD`, chama `checarEvento`, move o inimigo, verifica condições de fim de jogo, e imprime o mapa atualizado a cada turno e mensagens personalizadas para novo evento.
-   - Encerra quando `coletaveisQtde == 3` (vitória) ou `vida == 0` (derrota).
+5. Loop principal:
+  - lê e padroniza entrada `W/A/S/D`;
+  - chama `movimentoWASD`;
+  - chama `checarEvento`;
+  - move o inimigo;
+  - verifica condições de fim de jogo;
+  - imprime o mapa atualizado a cada turno e mensagens personalizadas para novo evento;
+  - trata exceções caso identificadas;
+  - encerra-se quando `coletaveisQtde == 3` (vitória) ou `vida == 0` (derrota).
