@@ -7,6 +7,45 @@ _O projeto que escolhemos foi "Uma Aventura MangueBeat": este jogo apresenta uma
 
 ---
 
+## Compilação e execução
+
+### Pré-requisitos
+
+- Compilador C++ com suporte a C++17 ou superior (g++ recomendado)
+
+### Compilando
+
+Na raiz do projeto, compile todos os arquivos `.cpp` de uma vez:
+
+```bash
+g++ main.cpp mapas.cpp player.cpp coletavel.cpp inimigo.cpp excecoes.cpp -o manguebeat
+```
+
+### Executando
+
+```bash
+./manguebeat
+```
+
+---
+
+## Como jogar
+
+Use as teclas **W/A/S/D** (maiúsculas ou minúsculas) para movimentar o personagem pelo mapa:
+
+| Tecla | Direção  |
+|-------|----------|
+| `W`   | Cima     |
+| `S`   | Baixo    |
+| `A`   | Esquerda |
+| `D`   | Direita  |
+
+O jogador (`P`) deve **coletar 3 itens** (`C`) espalhados pelos mapas para vencer. Fique atento ao inimigo (`I`) — cada colisão retira 1 ponto de vida. O jogo termina com vitória ao coletar todos os itens, ou com derrota ao perder todos os 3 pontos de vida.
+
+Os quatro mapas se conectam entre si: caminhar até a borda de um mapa transporta o jogador para o mapa adjacente.
+
+---
+
 ## Estrutura dos arquivos
 
 ```
