@@ -15,6 +15,7 @@ mapas.hpp / mapas.cpp
 player.hpp / player.cpp
 coletavel.hpp / coletavel.cpp
 inimigo.hpp / inimigo.cpp
+excecoes.hpp / excecoes.cpp
 coordenada.hpp
 ```
 
@@ -26,8 +27,8 @@ coordenada.hpp
 Estrutura simples para representar uma posição na matriz do mapa.
 
 #### Dados
-- `x`: coluna
-- `y`: linha
+- `x`: linha
+- `y`: coluna
 
 Possui construtor com valores padrão 0: `Coordenada(int x0=0, int y0=0)`.
 
@@ -68,11 +69,14 @@ Representa o jogador e controla seu movimento.
 - `posicaoAtual`: `Coordenada` com a posição atual do jogador.
 - `coletaveisQtde`: inteiro que conta quantos coletáveis o jogador já coletou. Ao chegar em 3, o jogo encerra.
 - `vida`: inteiro que representa os pontos de vida do jogador (começa em 3). Ao chegar em 0, o jogo encerra.
+- `novoColetavel`: booleano que indica a adição de um novo coletável.
+- `colisao`: booleano que indica um novo ataque do inimigo.
 
 #### Métodos
 - `Player(Mapa& mapa)`: construtor; posiciona o jogador em `(4, 5)` no mapa 0 e desenha `'P'` no mapa.
 - `movimentoWASD(Mapa& mapa, char m)`: processa a entrada `w/a/s/d`, verifica com `podeMover` se o movimento é válido e, se for, detecta coleta de `'C'` (incrementando `coletaveisQtde`) e chama `updateMapa` para atualizar o mapa e a posição interna do jogador.
 - `tomarDano()`: decrementa `vida` em 1 (chamado pela `main` quando o inimigo atinge o jogador).
+- `checarEvento()`: imprime mensagem em caso de adição de um novo coletável ou de colisão com o inimigo.
 - `getColetaveisQtde()`: retorna `coletaveisQtde`.
 - `getPosicao()`: retorna `posicaoAtual`.
 - `getVida()`: retorna `vida`.
@@ -80,10 +84,10 @@ Representa o jogador e controla seu movimento.
   Mapeamento de teclas (em relação a `x` = coluna, `y` = linha):
   | Tecla | Efeito |
   |-------|--------|
-  | `a`   | `y -= 1` (esquerda) |
-  | `d`   | `y += 1` (direita) |
-  | `w`   | `x -= 1` (cima) |
-  | `s`   | `x += 1` (baixo) |
+  | `a`   | `x -= 1` (esquerda) |
+  | `d`   | `x += 1` (direita) |
+  | `w`   | `y += 1` (cima) |
+  | `s`   | `y -= 1` (baixo) |
 
 ---
 
@@ -110,16 +114,24 @@ Herda de `Coletavel`. Representa um inimigo que persegue o jogador, spawnando co
 
 ---
 
+### Classe `AcaoInvalidaException` (`excecoes.hpp` / `excecoes.cpp`)
+Trata exceções em caso de ação inválida.
+
+#### Dados
+- `mensagem`: string para armazenamento da mensagem impressa.
+
+#### Métodos
+- `AcaoInvalidaException(std::string& msg)`: construtor; inicializa o atributo `mensagem`.
+- `getMensagem()`: método const que retorna mensagem.
+
+---
+
 ### `main.cpp`
 Controla o fluxo de jogo:
 
 1. Instancia `Mapa` e `Player` (o `'P'` já é desenhado no mapa no construtor).
 2. Instancia 3 objetos `Coletavel`, cada um spawnando em posição aleatória válida.
 3. Instancia 1 objeto `Inimigo`, spawnando em posição aleatória válida.
-4. Loop principal: lê entrada `w/a/s/d`, chama `movimentoWASD`, move o inimigo, verifica condições de fim de jogo e imprime o mapa atualizado a cada turno.
+4. Imprime mensagens iniciais e boas-vindas e instruções.
+5. Loop principal: lê e padroniza entrada `W/A/S/D`, chama `movimentoWASD`, chama `checarEvento`, move o inimigo, verifica condições de fim de jogo, e imprime o mapa atualizado a cada turno e mensagens personalizadas para novo evento.
    - Encerra quando `coletaveisQtde == 3` (vitória) ou `vida == 0` (derrota).
-
----
-
-## Próximos passos
-- Adicionar mensagens de feedback ao jogador (coletou item, bloqueado por parede, troca de mapa, dano recebido)
