@@ -122,7 +122,7 @@ Trata exceções em caso de ação inválida.
 
 #### Métodos
 - `AcaoInvalidaException(std::string& msg)`: construtor; inicializa o atributo `mensagem`.
-- `getMensagem()`: método const que retorna mensagem.
+- `getMensagem()`: método `const` que retorna mensagem.
 
 ---
 
