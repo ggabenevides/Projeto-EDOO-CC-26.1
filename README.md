@@ -7,6 +7,13 @@ _O projeto que escolhemos foi "Uma Aventura MangueBeat": este jogo apresenta uma
 
 ---
 
+## Composição da equipe
+- Gabriela Tavares Benevides;
+- Marcela Parahym Xavier Lins;
+- Sofia Avallone Sakovitz.
+
+---
+
 ## Compilação e execução
 
 ### Pré-requisitos
