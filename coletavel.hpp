@@ -2,16 +2,13 @@
 #define COLETAVEL_HPP
 #include "coordenada.hpp"
 #include "mapas.hpp"
+#include "objeto.hpp"
 
-class Coletavel
+class Coletavel : public Objeto
 {
-    protected:
-        Coordenada posicaoAtual;
-        int mapaEscolhido;
-
     public:
-        Coletavel(Mapa& mapa, char simbolo = 'C');
-        Coordenada getPosicao() { return posicaoAtual; }
-        int getMapa() { return mapaEscolhido; }
+        Coletavel(Mapa& mapa, char simbolo = 'C') : Objeto(mapa, simbolo) {};
+        bool mover(Mapa& mapa, Coordenada posicaoPlayer, int mapaPlayer) {return false;} //sempre retorna falso pois coletável não se move
+        ~Coletavel(){}
 };
 #endif

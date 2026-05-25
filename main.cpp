@@ -4,6 +4,7 @@
 #include "coletavel.hpp"
 #include "inimigo.hpp"
 #include "excecoes.hpp"
+#include "objeto.hpp"
 #include <iostream>
 
 int main(){
@@ -17,11 +18,10 @@ int main(){
 
     // instanciando coletáveis e armazenando eles num vetor para poder avaliar
     srand(time(0)); // é usado no construtor
-    int coletavelCount = 0;
-    while (coletavelCount < 3)
+    std::vector<Coletavel*> coletaveisDisponiveis;
+    while (coletaveisDisponiveis.size() < 3)
     {
-        Coletavel item(mapa);
-        coletavelCount++;
+        coletaveisDisponiveis.push_back(new Coletavel(mapa));
     }
 
     // instanciando inimigo

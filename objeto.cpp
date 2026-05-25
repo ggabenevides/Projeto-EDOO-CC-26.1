@@ -1,6 +1,6 @@
-#include "coletavel.hpp"
+#include "objeto.hpp"
 
-Coletavel::Coletavel(Mapa& mapa, char simbolo){
+Objeto::Objeto(Mapa& mapa, char simbolo){
 
     // inicializando coordenadas com valores válidos (apenas chão livre)
     bool valido = false;

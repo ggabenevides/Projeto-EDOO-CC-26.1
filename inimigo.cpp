@@ -1,7 +1,7 @@
 #include "inimigo.hpp"
 #include <cstdlib>
 
-Inimigo::Inimigo(Mapa& mapa) : Coletavel(mapa, 'I') {}
+Inimigo::Inimigo(Mapa& mapa) : Objeto(mapa, 'I') {}
 
 bool Inimigo::mover(Mapa& mapa, Coordenada posicaoPlayer, int mapaPlayer)
 {
